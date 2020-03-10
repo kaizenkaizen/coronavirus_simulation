@@ -7,16 +7,21 @@
 </head>
 
 <body>
-  <h1> version: 1 </h1>
+  <h1> version: 2 </h1>
+  
+  <label for="name">Duration</label>
+  <input type="number" id="name" name="name" required
+         minlength="1" maxlength="4">
   
   <script> 
     let infectedCounts = []
     let beginningInfectedCount = 1; 
     let growthRate = 1.147;
     let recoveryDuration = 17;
+    let duration = 140;
 
 
-    for (let i = 0; i < 140; i++){
+    for (let i = 0; i < duration; i++){
         let total = beginningInfectedCount;
         for (let j = i-recoveryDuration; j < i; j++){
             if (j >= 0){
