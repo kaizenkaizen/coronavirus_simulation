@@ -1,53 +1,66 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  
+
   <title>Coronavirus Simulation</title>
 
 </head>
 
-<body>
-  <h1> version: 3 </h1>
-  <h3> This simple simulation estimates the number of cases for coronavirus in the U.S in the future. The start date of the simulation is January 19, 2020, which is the first confirmed case in the U.S. </h3>
-  
-  <label>Duration in days</label>
+<body style = "font-family:Helvetica;">
+  <h4> This simulation estimates the number of future cases of coronavirus in the U.S. The start date of the simulation is January 19, 2020, which is the first confirmed case in the U.S. </h4>
+
+
+  <div> You can use this website to calculate duration in days to a date:  </div> <a href="https://www.timeanddate.com/date/duration.html">www.timeanddate.com</a>
+  <p> </p>
+  <label>Duration in days (try 140)</label>
   <input type="number" id="duration">
-  
-  <label>Growth rate (defaults is 1.147)</label>
+  <p> </p>
+  <label>Growth rate (try 1.147)</label>
   <input type="number" id="growthRate">
-  
-  <h4> After a person has recovered. That person is no longer able to infect new people. It is estimated that after first being infected a patient is usually no longer contagious on average 17 days afterwards.</h4>
+
+  <h4> After a person has recovered. That person is no longer able to infect new people. It is estimated that after first being infected a person is usually no longer contagious on average 17 days afterwards.</h4>
   <label>Recovery date in days (try 17) </label>
-  <input type="number" id="growthRate">
-  
-  <button type="button">Calulate</button>
+  <input type="number" id="recovery">
+  <p> </p>
+  <button onclick="calculateTotal()">Calulate</button>
   <h3> output </h3>
-  <h3 id="outputText"> 0 </h3>
-  
-  <script> 
-    let infectedCounts = []
-    let beginningInfectedCount = 1; 
-    let growthRate = 1.147;
-    let recoveryDuration = 17;
-    let duration = 140;
+  <div id="outputText">0</div>
+
+  <h5> This simulation doesn't attempt to calculate when the disease will peak due to a large number of people being immune. People become immune after infection if they recover and survive. It doesn't account for a slowing growth rate due to a higher percentage of the population being immune. It doesn't account for multiple variations of the virus.</h5>
+  <script>
+
+    function calculateTotal(){
+      let infectedCounts = []
+      let beginningInfectedCount = 1;
+      let growthRate = 1.147;
+      growthRate = document.getElementById("growthRate").value;
+      let recoveryDuration = 17;
+      recoveryDuration = document.getElementById("recovery").value;
+      let duration = 140;
+      duration = document.getElementById("duration").value;
 
 
-    for (let i = 0; i < duration; i++){
-        let total = beginningInfectedCount;
-        for (let j = i-recoveryDuration; j < i; j++){
-            if (j >= 0){
-                total += infectedCounts[j];
-            }
-        }
+      for (let i = 0; i < duration; i++){
+          let total = beginningInfectedCount;
+          for (let j = i-recoveryDuration; j < i; j++){
+              if (j >= 0){
+                  total += infectedCounts[j];
+              }
+          }
 
-        infectedCounts[i] = (total * growthRate) - total;
+          infectedCounts[i] = (total * growthRate) - total;
+      }
+
+      let sum = beginningInfectedCount;
+      infectedCounts.forEach(x => {sum += x});
+
+      console.log(infectedCounts);
+      console.log(sum);
+
+      document.getElementById("outputText").innerHTML = sum;
     }
 
-    let sum = beginningInfectedCount;
-    infectedCounts.forEach(x => {sum += x});
 
-    console.log(infectedCounts);
-    console.log(sum);
   </script>
 </body>
 </html>
