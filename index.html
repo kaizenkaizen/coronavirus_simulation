@@ -8,5 +8,30 @@
 
 <body>
   <h1> hello world </h1>
+  
+  <script> 
+    let infectedCounts = []
+    let beginningInfectedCount = 1; 
+    let growthRate = 1.147;
+    let recoveryDuration = 17;
+
+
+    for (let i = 0; i < 140; i++){
+        let total = beginningInfectedCount;
+        for (let j = i-recoveryDuration; j < i; j++){
+            if (j >= 0){
+                total += infectedCounts[j];
+            }
+        }
+
+        infectedCounts[i] = (total * growthRate) - total;
+    }
+
+    let sum = beginningInfectedCount;
+    infectedCounts.forEach(x => {sum += x});
+
+    console.log(infectedCounts);
+    console.log(sum);
+  </script>
 </body>
 </html>
