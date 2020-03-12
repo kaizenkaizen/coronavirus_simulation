@@ -11,7 +11,7 @@
 
   <div> You can use this website to calculate duration in days to a date:  </div> <a href="https://www.timeanddate.com/date/duration.html">www.timeanddate.com</a>
   <p> </p>
-  <label>Duration in days (try 140)</label>
+  <label>Duration in days (try 53, days to March 12, 2020)</label>
   <input type="number" id="duration">
 
   <p> </p>
@@ -19,7 +19,7 @@
   <input type="number" id="encounters">
 
   <p> </p>
-  <label>Chance that encountered person will be infected (try 0.0735)</label>
+  <label>Chance that encountered person will be infected (try 0.0760)</label>
   <input type="number" id="infectionChance">
 
   <h4> After a person has recovered. That person is no longer able to infect new people. It is estimated that after first being infected a person is usually no longer contagious on average 17 days afterwards.</h4>
@@ -28,9 +28,30 @@
   <p> </p>
   <button onclick="calculateTotal()">Calulate</button>
   <h3> output </h3>
-  <div id="outputText">0</div>
+  <div id="outputText" style="color:red">0</div>
 
   <h5> This simulation doesn't attempt to calculate when the disease will peak due to a large number of people being immune. This simulation assumes people become immune after infection if they recover and survive. It doesn't account for a slowing growth rate due to a higher percentage of the population being immune. It doesn't account for multiple variations of the virus. The source code can be found at: https://gist.github.com/kaizenkaizen/91dda615315675a9f9116ecdf3f3403d . Note: I am not a professional epidemiologist and this is just a fun side project. </h5>
+
+  <p> </p>
+
+  <table>
+    <tr>
+      <th>Day</th>
+      <th>Reported Cases in U.S. by CDC</th>
+    </tr>
+    <tr>
+      <td>Jan 19, 2020</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Mar 12, 2020</td>
+      <td>1215</td>
+    </tr>
+  </table>
+
+  <a href="https://www.cdc.gov/coronavirus/2019-ncov/cases-in-us.html">https://www.cdc.gov/coronavirus/2019-ncov/cases-in-us.html</a>
+
+
   <script>
 
     function calculateTotal(){
@@ -55,11 +76,14 @@
 
       let sum = beginningInfectedCount;
       infectedCounts.forEach(x => {sum += x});
-      
+
       document.getElementById("outputText").innerHTML = parseInt(sum);
     }
 
 
   </script>
+
+
+
 </body>
 </html>
