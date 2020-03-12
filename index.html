@@ -30,7 +30,8 @@
   <h3> Number of people infected after duration: </h3>
   <div id="outputText" style="color:red">0</div>
 
-  <h5> This simulation doesn't attempt to calculate when the disease will peak due to a large number of people being immune. This simulation assumes people become immune after infection if they recover and survive. It doesn't account for a slowing growth rate due to a higher percentage of the population being immune. It doesn't account for multiple variations of the virus. The source code can be found at: https://gist.github.com/kaizenkaizen/91dda615315675a9f9116ecdf3f3403d . Note: I am not a professional epidemiologist and this is just a fun side project. </h5>
+  <h5> This simulation doesn't attempt to calculate when the disease will peak due to a large number of people being immune. This simulation assumes people become immune after infection if they recover and survive. It doesn't account for a slowing growth rate due to a higher percentage of the population being immune. It doesn't account for multiple variations of the virus. Note: I am not a professional epidemiologist and this is just a fun side project. </h5>
+  <a href="https://github.com/kaizenkaizen/coronavirus_simulation/blob/master/index.html">link to source code</a>
 
   <p> </p>
 
@@ -59,8 +60,8 @@
       let beginningInfectedCount = 1;
       let recoveryDuration = document.getElementById("recovery").value; // expect 17
       let duration = document.getElementById("duration").value; // expect 140
-      let encounters = document.getElementById("encounters").value; // expect 17
-      let infectionChance = document.getElementById("infectionChance").value; // expect 140
+      let encounters = document.getElementById("encounters").value; // expect 6
+      let infectionChance = document.getElementById("infectionChance").value; // expect 0.0760
 
       for (let i = 0; i < duration; i++){
           let total = beginningInfectedCount;
