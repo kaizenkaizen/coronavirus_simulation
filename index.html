@@ -9,14 +9,18 @@
 <body style = "font-family:Helvetica;">
   <h4> This simulation estimates the number of future cases of coronavirus in the U.S. The start date of the simulation is January 19, 2020, which is the first confirmed case in the U.S. </h4>
 
-
   <div> You can use this website to calculate duration in days to a date:  </div> <a href="https://www.timeanddate.com/date/duration.html">www.timeanddate.com</a>
   <p> </p>
   <label>Duration in days (try 140)</label>
   <input type="number" id="duration">
+
   <p> </p>
-  <label>Growth rate (try 1.147)</label>
-  <input type="number" id="growthRate">
+  <label>Number of people an infected person encounters per day (try 2)</label>
+  <input type="number" id="encounters">
+
+  <p> </p>
+  <label>Chance that encountered person will be infected (try 0.0735)</label>
+  <input type="number" id="infectionChance">
 
   <h4> After a person has recovered. That person is no longer able to infect new people. It is estimated that after first being infected a person is usually no longer contagious on average 17 days afterwards.</h4>
   <label>Recovery date in days (try 17) </label>
@@ -26,19 +30,16 @@
   <h3> output </h3>
   <div id="outputText">0</div>
 
-  <h5> This simulation doesn't attempt to calculate when the disease will peak due to a large number of people being immune. People become immune after infection if they recover and survive. It doesn't account for a slowing growth rate due to a higher percentage of the population being immune. It doesn't account for multiple variations of the virus. The source code can be found at: https://gist.github.com/kaizenkaizen/91dda615315675a9f9116ecdf3f3403d</h5>
+  <h5> This simulation doesn't attempt to calculate when the disease will peak due to a large number of people being immune. This simulation assumes people become immune after infection if they recover and survive. It doesn't account for a slowing growth rate due to a higher percentage of the population being immune. It doesn't account for multiple variations of the virus. The source code can be found at: https://gist.github.com/kaizenkaizen/91dda615315675a9f9116ecdf3f3403d . Note: I am not a professional epidemiologist and this is just a fun side project. </h5>
   <script>
 
     function calculateTotal(){
       let infectedCounts = []
       let beginningInfectedCount = 1;
-      let growthRate = 1.147;
-      growthRate = document.getElementById("growthRate").value;
-      let recoveryDuration = 17;
-      recoveryDuration = document.getElementById("recovery").value;
-      let duration = 140;
-      duration = document.getElementById("duration").value;
-
+      let recoveryDuration = document.getElementById("recovery").value; // expect 17
+      let duration = document.getElementById("duration").value; // expect 140
+      let encounters = document.getElementById("encounters").value; // expect 17
+      let infectionChance = document.getElementById("infectionChance").value; // expect 140
 
       for (let i = 0; i < duration; i++){
           let total = beginningInfectedCount;
@@ -48,16 +49,14 @@
               }
           }
 
-          infectedCounts[i] = (total * growthRate) - total;
+          let grown = total  + (total * encounters * infectionChance);
+          infectedCounts[i] = grown - total;
       }
 
       let sum = beginningInfectedCount;
       infectedCounts.forEach(x => {sum += x});
-
-      console.log(infectedCounts);
-      console.log(sum);
-
-      document.getElementById("outputText").innerHTML = sum;
+      
+      document.getElementById("outputText").innerHTML = parseInt(sum);
     }
 
 
